@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Logowanie</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'prodapp/css/style.css' %}">
+    <link rel="icon" href="{% static 'images/icon.png' %}" type="image/png">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Logowanie</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.username.id_for_label }}">Login:</label>
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.password.id_for_label }}">Hasło:</label>
+                {{ form.password }}
+            </div>
+            <button type="submit">Zaloguj się</button>
+        </form>
+        <a href="{% url 'register' %}">Rejestracja</a>
+    </div>
+</body>
+</html>

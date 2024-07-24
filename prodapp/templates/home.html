@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Strona Główna</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'prodapp/css/style.css' %}">
+    <link rel="icon" href="{% static 'images/icon.png' %}" type="image/png">
+</head>
+<body>
+    <div class="main-container">
+        <h1>Witamy na stronie głównej!</h1>
+        <p>Witaj, {{ user.username }}!</p>
+        <div class="buttons">
+            <a href="{% url 'add_order' %}" class="btn">Dodaj Zamówienie</a>
+            <form method="post" action="{% url 'logout' %}" class="logout-form">
+                {% csrf_token %}
+                <button type="submit" class="btn">Wyloguj się</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

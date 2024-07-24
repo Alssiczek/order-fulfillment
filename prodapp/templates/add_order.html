@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dodaj Zamówienie</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'prodapp/css/style.css' %}">
+    <link rel="icon" href="{% static 'images/icon.png' %}" type="image/png">
+</head>
+<body>
+    <div>
+        <h1>Dodaj Zamówienie</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="barcode_input">Skanuj kod kreskowy:</label>
+            <input type="text" id="barcode_input" placeholder="Skanuj kod kreskowy tutaj" autofocus>
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }} error-message" {% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <br><br>
+            {{ form.as_p }}
+            <button type="submit">Dodaj</button>
+        </form>
+            <a href="{% url 'home' %}" class="btn-back-home">Powrót do strony głównej</a>
+
+    </div>
+    <script>
+        let scanTimeout;
+        document.getElementById('barcode_input').addEventListener('input', function(event) {
+            clearTimeout(scanTimeout);
+            const barcodeValue = this.value.trim();
+            if (barcodeValue.includes('#')) {
+                scanTimeout = setTimeout(() => {
+                    processBarcode(barcodeValue);
+                    this.value = ''; // Wyczyść pole po przetworzeniu kodu
+                }, 300); // Opóźnienie 300 ms, aby upewnić się, że cały kod został przetworzony
+            }
+        });
+
+        function processBarcode(barcodeValue) {
+            const [partNo, serialNumber] = barcodeValue.split('#');
+            if (partNo && serialNumber) {
+                document.getElementById('id_part_no').value = partNo.trim();
+                document.getElementById('id_serial_number').value = serialNumber.trim();
+                document.forms[0].submit(); // Przekierowanie po przetworzeniu kodu
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #2c2c2c; /* Ciemne tło, ale nie czarne */
+    color: #ffffff; /* Biały tekst */
+    margin: 0;
+    padding: 0;
+    font-size: 18px; /* Powiększenie tekstu */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Pełna wysokość widoku */
+}
+h1, h2 {
+    color: #ffffff; /* Biały tekst dla nagłówka */
+    text-align: center;
+    font-size: 36px; /* Powiększenie tekstu nagłówka */
+}
+
+h3 {
+    color: #ffffff; /* Biały tekst dla nagłówka */
+    text-align: center;
+    font-size: 24px; /* Powiększenie tekstu nagłówka */
+}
+
+p {
+    font-size: 20px; /* Powiększenie tekstu paragrafu */
+    text-align: center;
+}
+
+.login-container {
+    background-color: #3c3c3c; /* Tło kontenera logowania */
+    padding: 20px;
+    border-radius: 12px; /* Zaokrąglone krawędzie kontenera */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Delikatny cień */
+    text-align: center;
+    width: 100%;
+    max-width: 400px; /* Maksymalna szerokość kontenera */
+}
+.main-container {
+    background-color: #3c3c3c; /* Tło kontenera głównego */
+    padding: 40px;
+    border-radius: 12px; /* Zaokrąglone krawędzie kontenera */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Delikatny cień */
+    text-align: center;
+    width: 100%;
+    max-width: 800px; /* Maksymalna szerokość kontenera */
+    margin: 20px; /* Dodanie marginesu wokół kontenera */
+}
+form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    text-align: left; /* Wyrównanie tekstu etykiet do lewej */
+    color: #ffffff; /* Biały tekst dla etykiet */
+}
+
+input {
+    font-size: 18px; /* Powiększenie tekstu w polach formularza */
+    padding: 10px; /* Większe wewnętrzne odstępy */
+    border-radius: 12px; /* Zaokrąglone krawędzie */
+    margin: 10px 0; /* Odstępy między elementami formularza */
+    width: 100%; /* Pełna szerokość w dostępnej przestrzeni */
+    max-width: 300px; /* Maksymalna szerokość */
+    background-color: #3c3c3c; /* Ciemne tło dla pól tekstowych */
+    color: #ffffff; /* Biały tekst */
+    border: 1px solid #555; /* Obramowanie */
+}
+
+
+button {
+    background-color: #d3d3d3; /* Jasno szary kolor przycisku */
+    color: #000000; /* Czarny tekst na przycisku */
+    border: none;
+    border-radius: 12px; /* Zaokrąglone krawędzie przycisku */
+    cursor: pointer; /* Zmieniony kursor przy najechaniu */
+    padding: 15px 20px; /* Dodatkowe wewnętrzne odstępy */
+    width: 100%;
+    max-width: 300px;
+    font-size: 20px; /* Powiększenie czcionki przycisku */
+    margin-top: 20px; /* Dodatkowa przestrzeń poniżej przycisku */
+}
+
+
+button:hover {
+    background-color: #bcbcbc; /* Ciemniejszy szary kolor przy najechaniu */
+}
+
+a {
+    color: #ffffff; /* Biały tekst dla linków */
+    text-decoration: none;
+    margin-top: 20px;
+    display: inline-block;
+}
+
+a:hover {
+    text-decoration: underline; /* Podkreślenie linku przy najechaniu */
+}
+
+.buttons {
+    margin-top: 20px; /* Dodatkowa przestrzeń ponad przyciskami */
+}
+
+a.btn, button.btn {
+    background-color: #d3d3d3; /* Jasno szary kolor przycisku */
+    color: #000000; /* Czarny tekst na przycisku */
+    border: none;
+    border-radius: 12px; /* Zaokrąglone krawędzie przycisku */
+    cursor: pointer; /* Zmieniony kursor przy najechaniu */
+    padding: 15px 20px; /* Dodatkowe wewnętrzne odstępy */
+    font-size: 20px; /* Powiększenie czcionki przycisku */
+    margin: 10px 0; /* Odstępy między przyciskami */
+    text-decoration: none; /* Usunięcie podkreślenia z linków */
+    display: inline-block; /* Aby linki zachowywały się jak przyciski */
+    width: 100%;
+    max-width: 300px;
+}
+
+button.btn:hover, a.btn:hover {
+    background-color: #bcbcbc; /* Ciemniejszy szary kolor przy najechaniu */
+}
+
+.logout-form {
+    display: inline-block; /* Aby formularz był w jednej linii z linkiem */
+}
+
+.error-message {
+    color: red; /* Czerwony kolor błędu */
+    list-style: none; /* Usuń kropki z listy */
+    text-align: center; /* Wyśrodkuj tekst */
+    font-weight: bold; /* Pogrubienie czcionki */
+    font-size: 24px; /* Powiększenie czcionki błędu */
+}
+
+ul {
+    text-align: left; /* Wyrównanie listy do lewej */
+    padding-left: 20px; /* Wcięcie dla list */
+}
+
+ul ul {
+    padding-left: 40px; /* Dodatkowe wcięcie dla zagnieżdżonych list */
+}
+
+
+.component-header {
+    margin-bottom: 10px; /* Odstęp między nagłówkiem komponentu a listą numerów seryjnych */
+}
+
+.component-item {
+    display: flex;
+    align-items: center; /* Wyśrodkowanie pionowe */
+    gap: 10px; /* Odstęp między komponentem a przyciskiem */
+}
+
+.completed {
+    text-decoration: line-through; /* Przekreślenie tekstu */
+    opacity: 0.6; /* Przyciemnienie koloru */
+}
+
+.component-serial {
+    font-size: 20px; /* Powiększenie tekstu komponentu */
+}
+
+.button-inline {
+    padding: 5px 10px; /* Mniejsze wewnętrzne odstępy */
+    font-size: 16px; /* Mniejszy rozmiar czcionki */
+    margin: 0; /* Usuń margines */
+}
+
+.inline-form {
+    display: inline-block; /* Wyświetlaj form w jednej linii */
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.button-pdf {
+    margin-bottom: 10px; /* Odstęp poniżej przycisku PDF */
+}
+
+.button-complete {
+    margin-top: 10px; /* Odstęp powyżej przycisku "Skompletowane" */
+}
+
+.btn-back-home:hover {
+    background-color: #bcbcbc; /* Ciemniejszy szary kolor przy najechaniu */
+}

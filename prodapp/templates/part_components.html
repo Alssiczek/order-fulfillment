@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Komponenty dla {{ part.part_no }}</title>
+    
+</head>
+<body>
+    <h1>Komponenty dla {{ part.part_no }}</h1>
+    <ul>
+        {% for component in components %}
+        <li>{{ component.component_no }}: {{ component.quantity }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add_order' %}">Dodaj nowe zamówienie</a>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Skanowanie komponentów dla {{ part.part_no }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'prodapp/css/style.css' %}">
+    <link rel="icon" href="{% static 'images/icon.png' %}" type="image/png">
+</head>
+<body>
+    <div class="main-container">
+        <h1>Skanowanie komponentów dla {{ part.part_no }}</h1>
+        <h2>Numer seryjny partu: {{ serial_number }}</h2>
+
+        <!-- Wyświetlanie komunikatów o błędach -->
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }} error-message" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <label for="barcode_input">Skanuj kod kreskowy komponentu:</label>
+            <input type="text" id="barcode_input" name="barcode_input" placeholder="Skanuj kod kreskowy tutaj" autofocus>
+            <br><br>
+            <button type="submit">Dodaj komponent</button>
+        </form>
+
+        <h3>Lista komponentów:</h3>
+        <ul>
+            {% for item in component_counts %}
+            {% if item.scanned_count != item.component.quantity %}
+            <li>
+                <div class="component-header">{{ item.component.component_no }}: {{ item.component.quantity }} <strong>({{ item.scanned_count }}/{{ item.component.quantity }})</strong></div>
+                <ul>
+                    {% for pc in item.component.partcomponent_set.all %}
+                    {% if pc.part_serial_number == serial_number %}
+                    <li class="component-item">
+                        <span class="component-serial">{{ pc.component_serial_number }}</span>
+                        <form method="post" action="{% url 'remove_component' part.part_no serial_number pc.id %}" class="inline-form">
+                            {% csrf_token %}
+                            <button type="submit" class="button-inline">Usuń</button>
+                        </form>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endif %}
+            {% endfor %}
+            {% for item in component_counts %}
+            {% if item.scanned_count == item.component.quantity %}
+            <li class="completed">
+                <div class="component-header">{{ item.component.component_no }}: {{ item.component.quantity }} <strong>({{ item.scanned_count }}/{{ item.component.quantity }})</strong></div>
+                <ul>
+                    {% for pc in item.component.partcomponent_set.all %}
+                    {% if pc.part_serial_number == serial_number %}
+                    <li class="component-item">
+                        <span class="component-serial">{{ pc.component_serial_number }}</span>
+                        <form method="post" action="{% url 'remove_component' part.part_no serial_number pc.id %}" class="inline-form">
+                            {% csrf_token %}
+                            <button type="submit" class="button-inline">Usuń</button>
+                        </form>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+
+        {% if all_scanned %}
+        <div class="buttons-container">
+            <a href="{% url 'generate_pdf' part.part_no serial_number %}" target="_blank">
+                <button type="button" class="button-pdf">Generuj PDF</button>
+            </a>
+            <form method="post" action="{% url 'complete_order' part.part_no serial_number %}">
+                {% csrf_token %}
+                <button type="submit" class="button-complete">Skompletowane</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        let scanTimeout;
+        document.getElementById('barcode_input').addEventListener('input', function(event) {
+            clearTimeout(scanTimeout);
+            const barcodeValue = this.value.trim();
+            if (barcodeValue.includes('#')) {
+                scanTimeout = setTimeout(() => {
+                    processBarcode(barcodeValue);
+                    this.value = ''; // Wyczyść pole po przetworzeniu kodu
+                }, 300); // Opóźnienie 300 ms, aby upewnić się, że cały kod został przetworzony
+            }
+        });
+
+        function processBarcode(barcodeValue) {
+            const [componentNo, componentSerialNumber] = barcodeValue.split('#');
+            if (componentNo && componentSerialNumber) {
+                const inputComponentNo = document.createElement('input');
+                inputComponentNo.type = 'hidden';
+                inputComponentNo.name = 'component_no';
+                inputComponentNo.value = componentNo.trim();
+
+                const inputComponentSerialNumber = document.createElement('input');
+                inputComponentSerialNumber.type = 'hidden';
+                inputComponentSerialNumber.name = 'component_serial_number';
+                inputComponentSerialNumber.value = componentSerialNumber.trim();
+
+                const form = document.forms[0];
+                form.appendChild(inputComponentNo);
+                form.appendChild(inputComponentSerialNumber);
+                form.submit(); // Przekierowanie po przetworzeniu kodu
+            }
+        }
+    </script>
+</body>
+</html>
